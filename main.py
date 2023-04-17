@@ -119,3 +119,8 @@ def get_series_video_count(series_id: int):
 
     video_count = series.videos.count()
     return {"video_count": video_count}
+
+
+@app.on_event("shutdown")
+def shutdown_event():
+    db.close()
