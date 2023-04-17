@@ -57,8 +57,11 @@ const app = createApp({
                     <h4 class="text-xl mb-4">添加新系列</h4>
                         <div class="flex gap-4 mb-4">
                             <input type="text" class="form-control" v-model="new_series.name" placeholder="名称">
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox" class="form-control" v-model="new_series.is_multi">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="hidden" v-model="new_series.is_multi">
+                                <div :class="{'border': true, 'border-blue-500': new_series.is_multi, 'border-gray-300': !new_series.is_multi, 'rounded-full': true, 'w-6': true, 'h-6': true, 'flex': true, 'justify-center': true, 'items-center': true}" @click="new_series.is_multi = !new_series.is_multi">
+                                    <i :class="{'fas': true, 'fa-check': new_series.is_multi, 'text-blue-500': new_series.is_multi, 'text-opacity-0': !new_series.is_multi}"></i>
+                                </div>
                                 是否多人系列
                             </label>
                             <input type="text" class="form-control" v-model="new_series.desc" placeholder="描述">
@@ -161,6 +164,10 @@ const app = createApp({
                         this.selectedVideos.splice(index, 1);
                     }
                 },
+
+                isSelected(videoId) {
+                    return this.selectedVideos.includes(videoId);
+                },
             },
 
             watch: {
@@ -184,11 +191,14 @@ const app = createApp({
                     <h2 class="text-2xl font-bold mb-4">视频管理</h2>
                     <div class="flex gap-4 mb-4">
                         <input type="text" v-model="filter" @input="filterVideos" placeholder="筛选视频" class="form-control">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" v-model="selectAll" @change="toggleSelectAll">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="hidden" v-model="selectAll" @change="toggleSelectAll">
+                            <div :class="{'border': true, 'border-blue-500': selectAll, 'border-gray-300': !selectAll, 'rounded-full': true, 'w-6': true, 'h-6': true, 'flex': true, 'justify-center': true, 'items-center': true}" @click="selectAll = !selectAll; toggleSelectAll()">
+                                <i :class="{'fas': true, 'fa-check': selectAll, 'text-blue-500': selectAll, 'text-opacity-0': !selectAll}"></i>
+                            </div>
                             全选
                         </label>
-                        <select v-model="selectedSeries" class="form-select">
+                        <select v-model="selectedSeries" class="form-select rounded-md bg-white border border-gray-300 focus:border-indigo-500 text-base font-medium text-gray-700 py-2 px-4 mb-3">
                             <option v-for="s in series" :value="s.id">{{ s.name }}</option>
                         </select>
                         <button class="btn btn-primary" @click="assignVideosToSeries">分配视频到系列</button>
@@ -229,13 +239,15 @@ const app = createApp({
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="v in videos" @click="toggleVideoSelection(v.id)" class="cursor-pointer">
-                                <td>
-                                    <input type="checkbox" v-model="selectedVideos" :value="v.id" @click.stop>
+                            <tr v-for="v in videos"
+                                @click="toggleVideoSelection(v.id)"
+                                class="cursor-pointer video-row">
+                                <td :class="{ 'selected-row': isSelected(v.id) }">
+                                    <input type="checkbox" v-model="selectedVideos" :value="v.id" @click.stop class="form-checkbox">
                                 </td>
-                                <td>{{ v.id }}</td>
-                                <td class="ellipsis video-field">{{ v.title }}</td>
-                                <td class="ellipsis video-field">{{ v.desc }}</td>
+                                <td :class="{ 'selected-row': isSelected(v.id) }">{{ v.id }}</td>
+                                <td :class="{ 'selected-row': isSelected(v.id), 'ellipsis': true, 'video-field': true }">{{ v.title }}</td>
+                                <td :class="{ 'selected-row': isSelected(v.id), 'ellipsis': true, 'video-field': true }">{{ v.desc }}</td>
                             </tr>
                         </tbody>
                     </table>
