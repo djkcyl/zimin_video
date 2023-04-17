@@ -1,6 +1,8 @@
 # zimin_video
 
-简单的爬虫，简单的后台
+籽岷主页：https://space.bilibili.com/686127
+
+简单的爬虫，简单的后台，简单的 GPT
 
 > 本项目前后端均由 **ChatGPT 4** 独立完成
 
