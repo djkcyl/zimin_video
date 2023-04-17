@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频管理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-field {
+            max-width: 150px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div id="app" class="min-h-screen">
+        <div class="container mx-auto px-4 py-12">
+            <h1 class="text-4xl font-bold text-center mb-10">视频管理系统</h1>
+            <series-management></series-management>
+            <video-management></video-management>
+        </div>
+    </div>
+    <script type="module" src="/static/main.js"></script>
+</body>
+
+</html>
