@@ -1,0 +1,21 @@
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-field {
+    max-width: 150px;
+}
+
+.video-row {
+    transition: background-color 0.3s ease;
+}
+
+.video-row:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+}
+
+.selected-row {
+    background-color: rgba(0, 0, 255, 0.1);
+}
